@@ -10,13 +10,13 @@ router.post('/', authenticate ,async (req, res) => {
       const email = credentials[0]
       const user = await User.findOne({ where: { email } });
       const userId = user.user_id;
-      const { name, points, num_of_attempts, deadline, assignment_created, assignment_updated } = req.body;
+      const { name, points, num_of_attempts, deadline } = req.body;
       if (!name || !points || !num_of_attempts || !deadline) {
         return res.status(400).json({ message: 'Invalid request body' });
       }
-      if(assignment_created || assignment_updated) {
-        return res.status(403).send()
-      }
+//       if(assignment_created || assignment_updated) {
+//         return res.status(403).send()
+//       }
       const assignment = await Assignment.create({
         name,
         points,
@@ -65,7 +65,7 @@ router.put('/:assignmentId', authenticate ,async (req, res) => {
       const email = credentials[0]
       const user = await User.findOne({ where: { email } });
       const userId = user.user_id;
-      const { name, points, num_of_attempts, deadline, assignment_created, assignment_updated } = req.body;
+      const { name, points, num_of_attempts, deadline } = req.body;
       const assignment = await Assignment.findByPk(req.params.assignmentId)
       if (!assignment) {
         return res.status(404).json({ error: 'Assignment not found' });
@@ -76,9 +76,9 @@ router.put('/:assignmentId', authenticate ,async (req, res) => {
       if (!name || !points || !num_of_attempts || !deadline) {
         return res.status(400).json({ message: 'Invalid request body' });
       }
-      if(assignment_created || assignment_updated) {
-        return res.status(403).send()
-      }
+//       if(assignment_created || assignment_updated) {
+//         return res.status(403).send()
+//       }
       assignment.name = name || assignment.name;
       assignment.points = points || assignment.points;
       assignment.num_of_attempts = num_of_attempts || assignment.num_of_attempts;
