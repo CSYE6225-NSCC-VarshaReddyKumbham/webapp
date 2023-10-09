@@ -27,3 +27,5 @@ run npm start
 
 Application Testing
 run npm test : this runs test on healthz.test.js
+
+test
