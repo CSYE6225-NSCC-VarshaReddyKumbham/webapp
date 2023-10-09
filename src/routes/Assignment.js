@@ -17,6 +17,7 @@ router.post('/', authenticate ,async (req, res) => {
 //       if(assignment_created || assignment_updated) {
 //         return res.status(403).send()
 //       }
+
       const assignment = await Assignment.create({
         name,
         points,
