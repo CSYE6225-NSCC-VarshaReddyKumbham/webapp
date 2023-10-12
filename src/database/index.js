@@ -9,14 +9,14 @@ const database = process.env.DB_NAME
 const user = process.env.DB_USER
 const password = process.env.DB_PASSWORD
 const host = process.env.DB_HOST
-const dialectName = process.env.DB_DIALECT
-
-const sequelize = new Sequelize(
-  database, user, password, 
-  {
-    dialect: dialectName,
-    host: host
-  })
+const dialect = process.env.DB_DIALECT;
+const sequelize = new Sequelize({
+  dialect,
+  host: host,
+  database: database,
+  username: user,
+  password: password,
+});
 
 const User = UserModel(sequelize);
 const Assignment = AssignmentModel(sequelize);
