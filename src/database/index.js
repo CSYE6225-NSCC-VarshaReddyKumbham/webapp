@@ -5,11 +5,6 @@ const UserModel = require("../models/User");
 const AssignmentModel = require("../models/Assignment");
 
 require('dotenv').config();
-// const database = process.env.database
-// const user = process.env.username
-// const password = process.env.password
-// const dialectName = process.env.dialect
-// const host = process.env.host
 const database = process.env.DB_NAME
 const user = process.env.DB_USER
 const password = process.env.DB_PASSWORD

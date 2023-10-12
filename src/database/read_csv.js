@@ -2,6 +2,7 @@ const fs = require('fs');
 const csv = require('csv-parser');
 const { User } = require('../database/index');
 require('dotenv').config();
+
 const results = [];
 const csv_file_path = process.env.CSV_FILE
 
