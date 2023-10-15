@@ -28,7 +28,12 @@ jobs:
       shell: bash
 
     - name: Format Packer Templates
-      run: packer fmt -check=true ami.pkr.hcl
-
+      run: |
+        packer_fmt_result=$(packer fmt -check=true -write=false ./)
+        if [[ -n "$packer_fmt_result" ]]; then
+          echo "Packer template is not properly formatted. Please run 'packer fmt' locally and push the changes."
+          echo "$packer_fmt_result"
+          exit 1
+        fi
     - name: Validate Packer Templates
       run: packer validate ami.pkr.hcl
