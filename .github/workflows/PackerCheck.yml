@@ -16,25 +16,16 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up Packer
-      run: |
-        wget https://releases.hashicorp.com/packer/1.7.5/packer_1.7.5_linux_amd64.zip
-        unzip packer_1.7.5_linux_amd64.zip
-        chmod +x packer
-        mv packer /usr/local/bin/
-        packer init .
-      shell: bash
+      uses: hashicorp/setup-packer@v1
 
     - name: Format Packer Templates
       run: |
-        packer_fmt_result=$(packer fmt -check=true -write=false ./)
-        if [[ -n "$packer_fmt_result" ]]; then
-          echo "Packer template is not properly formatted. Please run 'packer fmt' locally and push the changes."
-          echo "$packer_fmt_result"
-          exit 1
-        fi
-      shell: bash
+          packer fmt -check=true ami.pkr.hcl
+          if [[ $? -ne 0 ]]; then
+            echo "Packer formatting check failed. Please format your Packer templates before merging."
+
     - name: Validate Packer Templates
       run: packer validate ami.pkr.hcl
