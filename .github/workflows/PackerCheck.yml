@@ -28,7 +28,7 @@ jobs:
       shell: bash
 
     - name: Format Packer Templates
-      run: packer fmt ami.pkr.hcl
+      run: packer fmt -check=true ami.pkr.hcl
 
     - name: Validate Packer Templates
       run: packer validate ami.pkr.hcl
