@@ -35,5 +35,6 @@ jobs:
           echo "$packer_fmt_result"
           exit 1
         fi
+      shell: bash
     - name: Validate Packer Templates
       run: packer validate ami.pkr.hcl
