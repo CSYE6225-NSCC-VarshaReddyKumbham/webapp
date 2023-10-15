@@ -1,7 +1,13 @@
 name: packer
 on:
-  push:
-
+  pull_request:
+    # branches: 
+    #   - main
+    paths:
+      - '**.pkr.hcl'  # Adjust the pattern to match your Packer templates
+    types:
+      - opened
+      - synchronize
 env:
   PRODUCT_VERSION: "1.8.6" # or: "latest"
 
