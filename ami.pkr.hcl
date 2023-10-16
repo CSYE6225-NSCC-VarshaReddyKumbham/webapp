@@ -50,10 +50,11 @@ source "amazon-ebs" "my-ami" {
   source_ami    = "${var.source_ami}"
   ssh_username  = "${var.ssh_username}"
   subnet_id     = "${var.subnet_id}"
+  force_deregister = true
 
   launch_block_device_mappings {
     delete_on_termination = true
-    device_name           = "/dev/sda1"
+    device_name           = "/dev/xvda"
     volume_size           = 8
     volume_type           = "gp2"
   }
@@ -63,10 +64,17 @@ build {
   sources = ["source.amazon-ebs.my-ami"]
 
   provisioner "shell" {
-    environment_vars = [
-      "DEBIAN_FRONTEND=noninteractive",
-      "CHECKPOINT_DISABLE=1"
+    inline = [
+      "sudo apt update",
+      "sudo apt install -y mariadb-server",
+      "sudo systemctl start mariadb",
+      "sudo systemctl enable mariadb",
+      "sudo mysql -u root <<EOF",
+      "ALTER USER 'root'@'localhost' IDENTIFIED BY 'Geethareddy@1989';",
+      "FLUSH PRIVILEGES;",
+      "EOF",
+      "sudo apt update",
+      "sudo apt install -y nodejs npm",
     ]
-    scripts = ["scripts/install_dependencies.sh"]
   }
 }
