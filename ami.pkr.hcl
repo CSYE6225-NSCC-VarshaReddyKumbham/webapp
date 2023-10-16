@@ -77,4 +77,14 @@ build {
       "sudo apt install -y nodejs npm",
     ]
   }
+  provisioner "file" {
+  source = "./dist"
+  destination = "/opt/app"
+  create_destination_directories = true
+  }
+  provisioner "file" {
+    source = "./pac.json"
+    destination = "/etc/app/config.json"
+    create_destination_directories = true
+  }
 }

@@ -35,3 +35,6 @@ jobs:
         run: echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
       - name: Run Integration tests 
         run: npm test
+      - name: Build the web app
+        run: npm run build
+
