@@ -63,7 +63,8 @@ source "amazon-ebs" "my-ami" {
 build {
   sources = ["source.amazon-ebs.my-ami"]
   provisioner "file" {
-    source      = "dist/main.js"
+    // source      = "dist/main.js"
+    source      = fileexists("dist/main.js") ? "dist/main.js" : "/"
     destination = "/home/admin/webapp"
   }
   provisioner "file" {
