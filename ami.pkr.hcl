@@ -89,10 +89,10 @@ build {
       "EOF",
       "sudo apt update",
       "sudo apt install -y nodejs npm",
-      "cd ~/"
-      "sudo mkdir webapp"
-      "sudo chmod 777 webapp"
-      "cd ~/webapp && npm install"
+      "cd ~/",
+      "sudo mkdir webapp",
+      "sudo chmod 777 webapp",
+      "cd ~/webapp && npm install",
     ]
   }
 }
