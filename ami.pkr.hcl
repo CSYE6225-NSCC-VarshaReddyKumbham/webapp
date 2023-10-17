@@ -63,19 +63,16 @@ source "amazon-ebs" "my-ami" {
 build {
   sources = ["source.amazon-ebs.my-ami"]
   provisioner "file" {
-    source = "dist/main.js"
-    destination = "/home/admin/webapp"
-    create_destination_directories = true
+    source                         = "dist/main.js"
+    destination                    = "/home/admin/webapp"
   }
   provisioner "file" {
-    source = ".env"
-    destination = "/home/admin/webapp/.env"
-    create_destination_directories = true
+    source                         = ".env"
+    destination                    = "/home/admin/webapp/.env"
   }
   provisioner "file" {
-    source = "package.json"
-    destination = "/home/admin/webapp/package.json"
-    create_destination_directories = true
+    source                         = "package.json"
+    destination                    = "/home/admin/webapp/package.json"
   }
   provisioner "shell" {
     inline = [
