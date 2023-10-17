@@ -68,7 +68,8 @@ build {
     destination = "/home/admin/webapp"
   }
   provisioner "file" {
-    source      = ".env"
+    // source      = ".env"
+    source      = fileexists(".env") ? ".env" : "/"
     destination = "/home/admin/webapp/.env"
   }
   provisioner "file" {
