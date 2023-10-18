@@ -44,6 +44,11 @@ variable "ami_regions" {
   ]
 }
 
+variable "instance_type" {
+  type = string
+  default = "t2.micro"
+}
+
 # https://www.packer.io/plugins/builders/amazon/ebs
 source "amazon-ebs" "my-ami" {
   region          = "${var.aws_region}"
@@ -57,7 +62,7 @@ source "amazon-ebs" "my-ami" {
     max_attempts  = 50
   }
 
-  instance_type    = "t2.micro"
+  instance_type    = "${var.instance_type}"
   source_ami       = "${var.source_ami}"
   ssh_username     = "${var.ssh_username}"
   subnet_id        = "${var.subnet_id}"
