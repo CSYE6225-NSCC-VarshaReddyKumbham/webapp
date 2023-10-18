@@ -45,7 +45,7 @@ source "amazon-ebs" "my-ami" {
   ami_regions = [
     "us-east-1",
   ]
-  profile = "${var.aws_profile}"
+  profile   = "${var.aws_profile}"
   ami_users = "${var.ami_users}"
   aws_polling {
     delay_seconds = 120
