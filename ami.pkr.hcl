@@ -45,7 +45,7 @@ variable "ami_regions" {
 }
 
 variable "instance_type" {
-  type = string
+  type    = string
   default = "t2.micro"
 }
 
@@ -78,6 +78,11 @@ source "amazon-ebs" "my-ami" {
 
 build {
   sources = ["source.amazon-ebs.my-ami"]
+  provisioner "file" {
+    // source      = ".env"
+    source      = fileexists(".env") ? ".env" : "/"
+    destination = "/home/admin/webapp/.env"
+  }
   provisioner "shell" {
     inline = [
       "sudo apt update",
@@ -99,11 +104,6 @@ build {
     // source      = "dist/main.js"
     source      = fileexists("dist/main.js") ? "dist/main.js" : "/"
     destination = "/home/admin/webapp/dist/main.js"
-  }
-  provisioner "file" {
-    // source      = ".env"
-    source      = fileexists(".env") ? ".env" : "/"
-    destination = "/home/admin/webapp/.env"
   }
   provisioner "file" {
     source      = "package.json"
