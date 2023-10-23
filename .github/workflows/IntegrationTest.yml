@@ -1,10 +1,10 @@
-name: Build Ami
+name: Integration Test
 on:
   pull_request:
     branches:
       - main
 jobs:
-  build-ami:
+  integration-test:
     runs-on: ubuntu-latest
     services:
       mysql:
