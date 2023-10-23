@@ -31,8 +31,6 @@ jobs:
           done
       - name: Install project dependencies
         run: npm install
-      - name: Set up .env
-        run: echo "${{ secrets.ENV_FILE_CONTENT }}" > .env
       - name: Run Integration tests 
         run: npm test
       - name: Build the web app
