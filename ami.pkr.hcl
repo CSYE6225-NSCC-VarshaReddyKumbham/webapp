@@ -77,9 +77,10 @@ source "amazon-ebs" "my-ami" {
 }
 
 build {
+  sources = ["source.amazon-ebs.my-ami"]
   provisioner "shell" {
     inline = [
-      "mkdir -p ~/webapp/dist",
+      "sudo mkdir -p ~/webapp/dist",
       "sudo apt update",
       "sudo apt install -y nodejs npm",
     ]
