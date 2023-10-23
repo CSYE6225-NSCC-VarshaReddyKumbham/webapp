@@ -108,7 +108,7 @@ build {
     destination = "/home/admin/webapp/dist/main.js"
   }
   provisioner "file" {
-    source      = "package.json"
+    source      = "package1.json"
     destination = "/home/admin/webapp/package.json"
   }
   provisioner "file" {
@@ -120,5 +120,6 @@ build {
       "sudo mv ~/webapp/Users.csv /opt/",
       "cd ~/webapp && npm install"
     ]
+  }
 
 }
