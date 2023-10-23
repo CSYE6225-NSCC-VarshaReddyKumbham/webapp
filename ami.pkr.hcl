@@ -108,7 +108,7 @@ build {
     destination = "/home/admin/webapp/dist/main.js"
   }
   provisioner "file" {
-    source      = "package1.json"
+    source      = "package.json"
     destination = "/home/admin/webapp/package.json"
   }
   provisioner "file" {
