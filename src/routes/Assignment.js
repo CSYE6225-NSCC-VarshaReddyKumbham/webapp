@@ -52,7 +52,7 @@ router.get('/', authenticate, async (req, res) => {
         exclude: ['user_id'],
       }
     });
-    return res.status(200).json({assignments});
+    return res.status(200).json(assignments);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Internal server error' });
