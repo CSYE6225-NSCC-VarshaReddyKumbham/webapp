@@ -16,6 +16,12 @@ router.post('/', authenticate ,async (req, res) => {
       if(!Number.isInteger(points) || !Number.isInteger(num_of_attempts)){
         return res.status(400).json({message: 'Points or Number of attempts must be integer'})
       }
+      if (typeof name !== 'string') {
+        return res.status(400).json({ message: 'Name must be a string' });
+      }
+      if (typeof deadline !== 'string' || isNaN(Date.parse(deadline))) {
+        return res.status(400).json({ message: 'Deadline must be a valid date' });
+      }
       if(assignment_created || assignment_updated) {
         return res.status(403).send()
       }
@@ -26,7 +32,9 @@ router.post('/', authenticate ,async (req, res) => {
         deadline,
         user_id: userId,
       }).then((assignment) => {
-        return res.status(201).json(assignment);
+        const assignmentResponse = {...assignment.toJSON()}
+        delete assignmentResponse.user_id
+        return res.status(201).send(assignmentResponse);
       })
       .catch((error) => {
         return res.status(400).json({ message: "Validation error for points and attempts" });
@@ -74,7 +82,13 @@ router.put('/:assignmentId', authenticate ,async (req, res) => {
       }
       if(!Number.isInteger(points) || !Number.isInteger(num_of_attempts)){
         return res.status(400).json({message: 'Points or Number of attempts must be integer'})
-    }
+      }
+      if (typeof name !== 'string') {
+        return res.status(400).json({ message: 'Name must be a string' });
+      }
+      if (typeof deadline !== 'string' || isNaN(Date.parse(deadline))) {
+        return res.status(400).json({ message: 'Deadline must be a valid date' });
+      }
       if (assignment.user_id !== userId) {
         return res.status(403).json({ error: 'Forbidden - You do not have permission to update this assignment' });
       }
