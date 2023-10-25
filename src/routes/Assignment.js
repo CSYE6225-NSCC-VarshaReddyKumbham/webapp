@@ -47,8 +47,12 @@ router.post('/', authenticate ,async (req, res) => {
 
 router.get('/', authenticate, async (req, res) => {
   try {
-    const assignments = await Assignment.findAll();
-    return res.status(200).json({ assignments });
+    const assignments = await Assignment.findAll({
+      attributes: {
+        exclude: ['user_id'],
+      }
+    });
+    return res.status(200).json(assignmentsResponse);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Internal server error' });
@@ -58,11 +62,17 @@ router.get('/', authenticate, async (req, res) => {
 router.get('/:assignmentId', authenticate, async (req, res) => {
   try {
     const assignmentId = req.params.assignmentId;
-    const assignment = await Assignment.findByPk(assignmentId);
+    const assignment = await Assignment.findByPk(assignmentId, {
+      attributes: {
+        exclude: ['user_id'],
+      },
+    });
     if (!assignment) {
       return res.status(404).json({ error: 'Assignment not found' });
     }
-    return res.status(200).json({ assignment });
+    const assignmentResponse = {...assignment.toJSON()}
+    delete assignmentResponse.user_id
+    return res.status(200).json(assignmentResponse);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Internal server error' });
