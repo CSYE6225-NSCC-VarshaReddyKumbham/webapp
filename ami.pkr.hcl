@@ -103,7 +103,7 @@ build {
   }
   provisioner "file" {
     source      = "Users.csv"
-    destination = "/opt/csye6225/webapp/Users.csv"
+    destination = "/opt/Users.csv"
   }
   provisioner "file" {
     source      = "webapp.service"
@@ -111,7 +111,6 @@ build {
   }
   provisioner "shell" {
     inline = [
-      "sudo mv /opt/csye6225/webapp/Users.csv /opt/",
       "cd /opt/csye6225/webapp && npm install",
       "sudo chown -R csye6225:csye6225 /opt/",
       "sudo mv /opt/csye6225/webapp/webapp.service /etc/systemd/system/",
