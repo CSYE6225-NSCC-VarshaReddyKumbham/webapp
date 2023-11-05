@@ -110,7 +110,7 @@ build {
     destination = "/home/admin/webapp/webapp.service"
   }
   provisioner "file" {
-    source      = "cloudwatch-agent-config.json"
+    source      = "cloud-watch-config.json"
     destination = "/tmp/cloudwatch-agent-config.json"
   }
   provisioner "shell" {
@@ -131,6 +131,4 @@ build {
       "sudo systemctl start amazon-cloudwatch-agent"
     ]
   }
-
-
 }
