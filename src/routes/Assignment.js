@@ -5,8 +5,10 @@ const { authenticate, getCredentials } = require('../../auth')
 const logger = require("../logging/applog")
 require('dotenv').config();
 const topic_arn = process.env.SNS_TOPIC_ARN 
+const arnParts = topic_arn.split(":");
+const region = arnParts[3];
 const AWS = require('aws-sdk');
-AWS.config.update({ region: process.env.AWS_REGION });
+AWS.config.update({ region: region });
 const sns = new AWS.SNS();
 
 router.post('/', authenticate ,async (req, res) => {
